@@ -288,10 +288,8 @@ function App() {
     return { totalCost, totalGross, totalHrs, weeksInMonth };
   }, [weeks, currentMonthKey]);
 
-  const hasRespiteHours = (d) => totalRespiteHrs(weekData[d]) > 0;
   function dayFamilyGross(d) { const c = dayCalcs[d]; return c.dc * RATES.directChildcare + c.dh * RATES.directHousehold + c.rc * RATES.respiteSupplementChildcare + c.rh * RATES.respiteSupplementHousehold; }
   function dayTotalEarnings(d) { const c = dayCalcs[d]; return c.dc * RATES.directChildcare + c.dh * RATES.directHousehold + (c.rc + c.rh) * RATES.respiteCompany + c.rc * RATES.respiteSupplementChildcare + c.rh * RATES.respiteSupplementHousehold; }
-  function dayHasRespite(d) { const c = dayCalcs[d]; return (c.rc + c.rh) > 0; }
 
   const pastKeys = Object.keys(weeks).filter(k => k !== key).sort((a, b) => b.localeCompare(a)).slice(0, 8);
   const isFirstUse = totals.totalHrs === 0 && pastKeys.length === 0 && !activeDay;
